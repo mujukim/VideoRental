@@ -12,6 +12,7 @@ int main()
     Movie newRelease2{ "신작 2",Movie::NEW_RELEASE };
     Movie children1{ "어린이 1", Movie::CHILDRENS };
     Movie children2{ "어린이 2", Movie::CHILDRENS };
+    Movie newGenre{ "예제장르 1", Movie::EXAMPLE_GENRE };
     Customer customer{ "고객" };
 
     customer.addRental({ regular1, 2 });
@@ -20,7 +21,7 @@ int main()
     customer.addRental({ newRelease2, 2 });
     customer.addRental({ children1, 3 });
     customer.addRental({ children2, 4 });
-
+    customer.addRental({ newGenre, 4 });
     cout << customer.statement() << endl;
 
     return 0;

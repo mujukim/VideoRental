@@ -42,6 +42,10 @@ std::string Customer::statement()
         if ( each.getDaysRented() > 3 )
           thisAmount += ( each.getDaysRented() - 3 ) * 1.5;
         break;
+
+      case Movie::EXAMPLE_GENRE:
+          thisAmount += each.getDaysRented() * 2;
+          break;
     }
 
     // Add frequent renter points
