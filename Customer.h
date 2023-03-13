@@ -18,6 +18,7 @@ public:
 
   // Generate a statement for the customer
   std::string statement();
+  std::string statement_detail(); 
 
 private:
   std::string customerName;

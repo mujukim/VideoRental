@@ -10,26 +10,25 @@ public:
   static const int NEW_RELEASE = 1;
   static const int EXAMPLE_GENRE = 3;
 
-  Movie( const std::string& title, int priceCode = REGULAR );
+  Movie( const std::string& title, int priceCode = REGULAR ); // 내용이 길어져 인라인함수 미사용, movie.cpp에 구현.
 
   int getPriceCode() const;
   void setPriceCode( int arg );
   std::string getTitle() const;
+  std::string getGenreTitle() const; 
 
 private:
   std::string movieTitle;
+  std::string genreTitle; 
   int moviePriceCode;
 };
-
-inline Movie::Movie( const std::string& title, int priceCode ): 
-  movieTitle( title ),
-  moviePriceCode( priceCode )
-{}
 
 inline int Movie::getPriceCode() const { return moviePriceCode; }
 
 inline void Movie::setPriceCode( int arg ) { moviePriceCode = arg; }
 
 inline std::string Movie::getTitle() const { return movieTitle; }
+
+inline std::string Movie::getGenreTitle() const { return genreTitle; }
 
 #endif // MOVIE_H

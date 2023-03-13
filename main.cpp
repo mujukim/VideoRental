@@ -24,5 +24,9 @@ int main()
     customer.addRental({ newGenre, 4 });
     cout << customer.statement() << endl;
 
+    cout << endl;
+
+    cout << customer.statement_detail() << endl;
+
     return 0;
 }
