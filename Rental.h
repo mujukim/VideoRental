@@ -9,22 +9,27 @@ public:
 
   int getDaysRented() const;
   const Movie& getMovie() const;
-  double getRantalCost() const;
+  double getRentalCost() const;
+  double getFrequentRenterPoints() const;
 
 private:
   Movie rentedMovie;
   int nDaysRented;
-  double nCostRental;
+  double dCostRental;
+  int nFrequentRenterPoints;
 };
 
 inline Rental::Rental( const Movie& movie, int daysRented ):
 	rentedMovie( movie ),
 	nDaysRented( daysRented ),
-	nCostRental( movie.getRentalCost(daysRented) ) {}
+	dCostRental( movie.getRentalCost(daysRented) ),
+	nFrequentRenterPoints ( movie.getFrequentRenterPoints(daysRented)){}
 
 inline int Rental::getDaysRented() const { return nDaysRented; }
 
 inline const Movie& Rental::getMovie() const { return rentedMovie; }
 
-inline double Rental::getRantalCost() const { return nCostRental; }
+inline double Rental::getRentalCost() const { return dCostRental; }
+
+inline double Rental::getFrequentRenterPoints() const { return nFrequentRenterPoints; }
 #endif // RENTAL_H

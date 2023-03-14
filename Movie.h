@@ -14,7 +14,9 @@ public:
 
   int getPriceCode() const;
   void setPriceCode( int arg );
+
   double getRentalCost(int daysRanted) const;
+  int getFrequentRenterPoints(int dayRanted) const;
   std::string getTitle() const;
   std::string getGenreTitle() const; 
 

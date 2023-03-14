@@ -50,3 +50,27 @@ double Movie::getRentalCost(int daysRanted) const
 
     return retval;
 }
+
+int Movie::getFrequentRenterPoints(int dayRanted) const
+{
+    int retPoint = 0;
+    switch (moviePriceCode)
+    {
+    case Movie::NEW_RELEASE:
+        if (dayRanted > 1) 
+            retPoint = 2;
+        else
+            retPoint = 1;
+        break;
+
+    case Movie::CHILDRENS:
+    case Movie::EXAMPLE_GENRE:
+    case Movie::REGULAR:
+        retPoint = 1;
+        break;
+   
+    default:
+        break;
+    }
+    return retPoint;
+}
