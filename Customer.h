@@ -17,8 +17,7 @@ public:
   std::string getName() const;
 
   // Generate a statement for the customer
-  std::string statement();
-  std::string statement_detail(); 
+  std::string statement(bool detail = false); // detail = false, 출력방식 (영화이름, 대여금) / = true, 출력방식 (장르, 영화이름, 대여일자, 대여금) 
 
 private:
   std::string customerName;

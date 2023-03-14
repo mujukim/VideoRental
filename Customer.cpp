@@ -6,7 +6,7 @@
 using std::ostringstream;
 using std::vector;
 
-std::string Customer::statement()
+std::string Customer::statement(bool detail)
 {
   double totalAmount = 0.;
   int frequentRenterPoints = 0;
@@ -18,22 +18,30 @@ std::string Customer::statement()
   std::ostringstream result;
   result << "Rental Record for " << getName() << "\n";
 
+  double thisAmount = 0.; // for문안에서 매 번 변수를 생성할 필요 없음.
   // Loop over customer's rentals
   for ( ; iter != iter_end; ++iter ) {
 
-    double thisAmount = 0.;
-    Rental each = *iter;
-
     // Determine amounts for each rental
-    thisAmount = each.getRentalCost();
+    thisAmount = iter->getRentalCost();
+    totalAmount += thisAmount;
 
     // Add frequent renter points
-    frequentRenterPoints += each.getFrequentRenterPoints();
+    frequentRenterPoints += iter->getFrequentRenterPoints();
 
     // Show figures for this rental
-    result << "\t" << each.getMovie().getTitle() << "\t"
-           << thisAmount << std::endl;
-    totalAmount += thisAmount;
+    if (detail)
+    {
+        result << "\t" << iter->getMovie().getGenreTitle()
+            << "\t" << iter->getMovie().getTitle()
+            << "\t" << iter->getDaysRented()
+            << "\t" << thisAmount << std::endl;
+    }
+    else
+    {
+        result << "\t" << iter->getMovie().getTitle()
+            << "\t" << thisAmount << std::endl;
+    }
   }
 
   // Add footer lines
@@ -42,70 +50,4 @@ std::string Customer::statement()
          << " frequent renter points";
 
   return result.str();
-}
-
-
-std::string Customer::statement_detail()
-{
-    double totalAmount = 0.;
-    int frequentRenterPoints = 0;
-
-    std::vector< Rental >::iterator iter = customerRentals.begin();
-    std::vector< Rental >::iterator iter_end = customerRentals.end();
-
-    // result will be returned by statement()
-    std::ostringstream result;
-    result << "Rental Record for " << getName() << "\n";
-
-    // Loop over customer's rentals
-    for (; iter != iter_end; ++iter) {
-
-        double thisAmount = 0.;
-        Rental each = *iter;
-
-        // Determine amounts for each rental
-        switch (each.getMovie().getPriceCode()) {
-
-        case Movie::REGULAR:
-            thisAmount += 2.;
-            if (each.getDaysRented() > 2)
-                thisAmount += (each.getDaysRented() - 2.0) * 1.5;
-            break;
-
-        case Movie::NEW_RELEASE:
-            thisAmount += each.getDaysRented() * 3.0;
-            break;
-
-        case Movie::CHILDRENS:
-            thisAmount += 1.5;
-            if (each.getDaysRented() > 3)
-                thisAmount += (each.getDaysRented() - 3.0) * 1.5;
-            break;
-
-        case Movie::EXAMPLE_GENRE:
-            thisAmount += each.getDaysRented() * 2.0;
-            break;
-        }
-
-        // Add frequent renter points
-        frequentRenterPoints++;
-
-        // Add bonus for a two day new release rental
-        if ((each.getMovie().getPriceCode() == Movie::NEW_RELEASE)
-            && each.getDaysRented() > 1) frequentRenterPoints++;
-
-        // Show figures for this rental
-        result << "\t" << each.getMovie().getGenreTitle()
-               << "\t" << each.getMovie().getTitle()
-               << "\t" << each.getDaysRented()
-               << "\t" << thisAmount << std::endl;
-        totalAmount += thisAmount;
-    }
-
-    // Add footer lines
-    result << "Amount owed is " << totalAmount << "\n";
-    result << "You earned " << frequentRenterPoints
-        << " frequent renter points";
-
-    return result.str();
 }

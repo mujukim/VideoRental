@@ -26,7 +26,7 @@ int main()
 
     cout << endl;
 
-    cout << customer.statement_detail() << endl;
+    cout << customer.statement(true) << endl;
 
     return 0;
 }
