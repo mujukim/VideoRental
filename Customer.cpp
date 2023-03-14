@@ -25,28 +25,7 @@ std::string Customer::statement()
     Rental each = *iter;
 
     // Determine amounts for each rental
-    switch ( each.getMovie().getPriceCode() ) {
-
-      case Movie::REGULAR:
-        thisAmount += 2.;
-        if ( each.getDaysRented() > 2 )
-          thisAmount += ( each.getDaysRented() - 2.0 ) * 1.5 ;
-        break;
-
-      case Movie::NEW_RELEASE:
-        thisAmount += each.getDaysRented() * 3.0;
-        break;
-
-      case Movie::CHILDRENS:
-        thisAmount += 1.5;
-        if ( each.getDaysRented() > 3 )
-          thisAmount += ( each.getDaysRented() - 3.0 ) * 1.5;
-        break;
-
-      case Movie::EXAMPLE_GENRE:
-          thisAmount += each.getDaysRented() * 2.0;
-          break;
-    }
+    thisAmount = each.getRantalCost();
 
     // Add frequent renter points
     frequentRenterPoints++;

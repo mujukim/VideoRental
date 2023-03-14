@@ -14,6 +14,7 @@ public:
 
   int getPriceCode() const;
   void setPriceCode( int arg );
+  double getRentalCost(int daysRanted) const;
   std::string getTitle() const;
   std::string getGenreTitle() const; 
 
@@ -21,6 +22,14 @@ private:
   std::string movieTitle;
   std::string genreTitle; 
   int moviePriceCode;
+
+  // 대여금
+  // 기본 대여 기간 이내, 대여금 = 기본금
+  // 기본 대여 기간 초과, 대여금 = 기본금 + (대여 기간 - 기본 대여기간) * 추가금
+  double nBasicCost; // 기본금
+  double nOverCost; // 추가금(기간에 비례)
+  double nDayDefaulted;  // 기본 대여기간
+
 };
 
 inline int Movie::getPriceCode() const { return moviePriceCode; }
